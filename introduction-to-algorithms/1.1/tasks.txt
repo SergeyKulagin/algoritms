@@ -3,3 +3,7 @@ Sorting is used in many web sites and software.
 2. Other than speed, what other measures of efficiency might one use in a real-world setting?
 In mobile device there is limitation on RAM and energy. So another measures of efficiency can be how much RAM
 the program uses, or how much power. The disk storage can be also a measurement.
+4. in shortest path problem and traveling-salesman problem we need to find the shortest path.
+However in the traveling-salesman problem we need to visit all the cities.
+5. An algorithm that calculates the wheels angle in the self-driving car likely has to give the best solution.
+An algorithm that calculates approximate time for public transport to arrive is enough.

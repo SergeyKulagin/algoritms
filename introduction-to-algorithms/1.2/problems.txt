@@ -1,0 +1,12 @@
+micro = 10^-6
+time = f(n) microseconds
+
+1-1
+for 1 second only
+lg2(n)  => 2^1000000  - very big
+sqrt(n) => 10^12
+n => 10^6
+n^2 => 10^3
+n^3 => 10^2
+2^n => ~19.9
+n! => ~9.44

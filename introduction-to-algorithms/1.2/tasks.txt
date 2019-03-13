@@ -1,0 +1,12 @@
+1. The app for the Uber can calculate the approximate arrival time.
+The function of the algorithm here is by having current location of the driver and the location of the client
+and probably some other data to calculate the arrival time. The same can be said about the route.
+2.
+8n^2  vs  64n lgn
+~ 43 merge sort beats insertion sort
+3.
+2^n = 32768, 100 n^2 = 22500
+2^n = 16384, 100 n^2 = 19600
+so the n = 15
+
+

@@ -1,4 +1,4 @@
-def insertionSort(a):
+def insertionSortAsc(a):
     for j in range(1, len(a)):
         key = a[j]
         i = j - 1
@@ -9,4 +9,4 @@ def insertionSort(a):
     return a
 
 
-print(insertionSort([2,3,1]))
+print(insertionSortAsc([2, 3, 1]))

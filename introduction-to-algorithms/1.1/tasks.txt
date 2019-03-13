@@ -1,0 +1,5 @@
+1. Give a real world example that requires sorting or real-world example that requires computing a convex hull?
+Sorting is used in many web sites and software.
+2. Other than speed, what other measures of efficiency might one use in a real-world setting?
+In mobile device there is limitation on RAM and energy. So another measures of efficiency can be how much RAM
+the program uses, or how much power. The disk storage can be also a measurement.

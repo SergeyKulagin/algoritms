@@ -15,3 +15,29 @@ Before loop iteration we haven't searched yet so logically res is NIL
 On each iteration step we preserve NIL or immediately return with the index if the result is found
 3) termination
 The loop reaches termination only in case no corresponding value was found, res preserves NIL in that case
+
+2.1-4
+INPUT:
+A - array of length n that represents an integer number, each element is an integer that represents bit (0, 1)
+B - another in array that represents an integer number
+OUTPUT:
+C - array of length n + 1, that represents sum of A and B
+
+def add-ints(A,B)
+    n = A.length
+    C = array(n+1)
+    prev = 0
+    for i = n down 0
+       bit_sum = A[i] + B[i] + prev
+       if(bit_sum == 0)
+            C[i] = 0
+       if(bit_sum == 1)
+            C[i] = 1
+            prev = 0
+       if(bit_sum == 2)
+            C[i] = 0
+            prev = 1
+       if(bit_sum == 3)
+            C[i] = 1
+            prev = 1
+     C[n + 1] = prev

@@ -1,0 +1,17 @@
+2.1-3
+def linear-search(A, v)
+res = NIL
+for i = 1 to A.length
+    if(v == A[i])
+        res = i
+        return res
+return res
+
+loop invariant - on each step the result is either NIL (if it's not found) or the index
+
+1) initialization
+Before loop iteration we haven't searched yet so logically res is NIL
+2) maintenance
+On each iteration step we preserve NIL or immediately return with the index if the result is found
+3) termination
+The loop reaches termination only in case no corresponding value was found, res preserves NIL in that case

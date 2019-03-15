@@ -1,0 +1,2 @@
+Algorithm analysis
+https://en.wikipedia.org/wiki/Summation

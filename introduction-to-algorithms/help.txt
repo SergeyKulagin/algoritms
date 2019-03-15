@@ -1,2 +1,3 @@
 Algorithm analysis
 https://en.wikipedia.org/wiki/Summation
+https://en.wikipedia.org/wiki/Exponentiation

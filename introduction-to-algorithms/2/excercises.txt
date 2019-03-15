@@ -60,3 +60,11 @@ loop invariant - A[1...i] is sorted
 it needs to run till n-1 because on the prev. iteration it will be already sorted
 worst case is equal average case and = Θ(n^2).
 That's because even if the array is sorted we still iterate in the inner loop till its end.
+
+2.2-3
+Average linear search needs to check n/2 elements
+Worst case - n
+In theta both =  Θ(n)
+
+2.2-4
+Make a quick check if it's satisfies the output, e.g. sorted

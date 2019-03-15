@@ -41,3 +41,22 @@ def add-ints(A,B)
             C[i] = 1
             prev = 1
      C[n + 1] = prev
+
+2.2-1
+Θ(n^3)
+
+2.2-2
+def selection-sort(A)
+    n = A.length
+    for i = 1 to n-1
+        min = i
+        for j = i+1 to n
+            if A[j] < min  min = j
+        temp = A[i]
+        A[i] = A[min]
+        A[min] = temp
+
+loop invariant - A[1...i] is sorted
+it needs to run till n-1 because on the prev. iteration it will be already sorted
+worst case is equal average case and = Θ(n^2).
+That's because even if the array is sorted we still iterate in the inner loop till its end.

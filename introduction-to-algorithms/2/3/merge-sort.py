@@ -1,13 +1,24 @@
 def merge(a, start, middle, end):
-    r = []
+    temp = []
+    i = start
     j = middle
-    for i in range(start, middle - 1):
-        # todo
-        if a[i] < a[j]:
-            r.pop(a[i])
+    for k in range (start, end):
+        if a[i] <= a[j]:
+            temp.append(a[i])
+            i = i + 1
         else:
-            r.pop(a[j])
+            temp.append(a[j])
             j = j + 1
+
+    temp.reverse()
+    for m in range (start, end):
+        a[m] = temp.pop()
+    return a
+
+
+print(merge([1,3,5,2,4], 0, 3, 4))
+
+
 
 
 

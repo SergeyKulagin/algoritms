@@ -1,5 +1,6 @@
 import sys
 
+
 def merge(a, start, middle, end):
     temp = []
     i = 0
@@ -15,12 +16,25 @@ def merge(a, start, middle, end):
         else:
             temp.append(right[j])
             j = j + 1
-    temp.reverse()
     for m in range(start, end):
-        a[m] = temp.pop()
+        a[m] = temp[m - start]
     return a
 
 
-l = [1, 3, 5, 2, 4]
-print(merge(l, 0, 3, 5))
-print(l[1:3])
+def mergesort(a):
+    mergesortit(a, 0, len(a))
+    return a
+
+
+def mergesortit(a, start, end):
+    if start >= end - 1:
+        return
+    middle = round((start + end) / 2)
+    mergesortit(a, start, middle)
+    mergesortit(a, middle, end)
+    merge(a, start, middle, end)
+
+
+l = [1, 3, 5, 7, 2, 4, 8, 10, 15]
+print(mergesort(l))
+print(mergesort([7,6,3,1]))

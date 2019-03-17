@@ -2,7 +2,6 @@ import sys
 
 
 def merge(a, start, middle, end):
-    temp = []
     i = 0
     j = 0
     left = a[start:middle]
@@ -11,13 +10,11 @@ def merge(a, start, middle, end):
     right.append(sys.maxsize)
     for k in range(start, end):
         if left[i] <= right[j]:
-            temp.append(left[i])
+            a[k] = left[i]
             i = i + 1
         else:
-            temp.append(right[j])
+            a[k] =right[j]
             j = j + 1
-    for m in range(start, end):
-        a[m] = temp[m - start]
     return a
 
 

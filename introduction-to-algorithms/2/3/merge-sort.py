@@ -18,6 +18,36 @@ def merge(a, start, middle, end):
     return a
 
 
+def merge_nosentinel(a, start, middle, end):
+    temp = a[start:end]
+    i = start
+    j = middle
+    k = 0
+    while i < middle and j < end:
+        if a[i] < a[j]:
+            temp[k] = a[i]
+            i = i + 1
+        else:
+            temp[k] = a[j]
+            j = j + 1
+        k = k +1
+
+    while i < middle:
+        temp[k] = a[i]
+        i = i + 1
+        k = k + 1
+    while j < end:
+        temp[k] = a[j]
+        j = j + 1
+        k = k + 1
+
+    for m in range(0, len(temp)):
+        a[start + m] = temp[m]
+
+    return a
+
+
+
 def mergesort(a):
     mergesortit(a, 0, len(a))
     return a
@@ -29,7 +59,7 @@ def mergesortit(a, start, end):
     middle = round((start + end) / 2)
     mergesortit(a, start, middle)
     mergesortit(a, middle, end)
-    merge(a, start, middle, end)
+    merge_nosentinel(a, start, middle, end)
 
 
 l = [1, 3, 5, 7, 2, 4, 8, 10, 15]

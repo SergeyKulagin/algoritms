@@ -40,4 +40,10 @@ def binarySearch(a, el)
 2.3-6
 Yes and no. We can search faster though we still need to move the elements the same. So the worst-case running tun will not change
 
+2.3-7
+The algorithm can be following:
+1) sort the S -> Ssorted (O(n log n))
+2) take the first element S1. To form a sum sum we should have Sanother = x - S1. Seach for x - S1 through binary search => O(n log n)
+As result we have the speach O(n log (n))
+
 

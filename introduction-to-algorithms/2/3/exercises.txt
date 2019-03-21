@@ -2,3 +2,20 @@
 Illustrated on a paper
 
 2.3-2
+T(n) = 2, if n = 2
+       2T(n/2) + n, if n = 2^k, k > 1
+prove by math induction that T(n) = n lg n
+
+0. prove that it holds for n = 2 => 2 lg 2 = 2 * 1 = 2
+1. induction step
+
+suppose that:
+2f(k/2) + k = k lg(k) is OK
+let's prove for 2*k:
+2f(k) + 2k = 2k lg(2k)
+             2k (1 + lg(k))
+             2k + 2k lg(k)
+2f(k) = 2k lg(k)
+f(k) = k lg(k)
+f(k) = 2f(k/2) + k  - and that's our original equation
+

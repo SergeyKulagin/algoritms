@@ -1,3 +1,5 @@
 Algorithm analysis
 https://en.wikipedia.org/wiki/Summation
 https://en.wikipedia.org/wiki/Exponentiation
+
+recurrence formula - when we can express f(n) through f(n-1). E.g n! = (n-1)! * n

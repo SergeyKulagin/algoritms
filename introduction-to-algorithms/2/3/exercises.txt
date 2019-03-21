@@ -19,3 +19,25 @@ let's prove for 2*k:
 f(k) = k lg(k)
 f(k) = 2f(k/2) + k  - and that's our original equation
 
+2.3-4
+f(n) = f(n-1) + n  => 1 + 2 + ... n
+
+2.3-5
+def binarySearch(a, el)
+    left = 0
+    right = a.length
+
+    while(right > left)
+       mid = (left + right)/2
+       if a[mid] == el
+           return mid
+
+       if el > a[mid]
+           left = mid + 1
+       else
+           right = mid
+
+2.3-6
+Yes and no. We can search faster though we still need to move the elements the same. So the worst-case running tun will not change
+
+

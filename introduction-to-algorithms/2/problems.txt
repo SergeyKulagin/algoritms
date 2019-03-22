@@ -1,0 +1,12 @@
+2-1
+a.
+the worst case for the insertion sort is O(n^2)
+Here we have n/k sublists of the length k.
+to sort each list we need O(k^2)
+since we have n/k sublists to sort all of them we need O(k^2 * n/k) = O(n k)
+b. merge the sublists of the length k is similar to full merge sort alogirithm
+but the initial length not 1 but k. So we have n/k arrays which gives us lg(n/k) levels of recursion.
+The size of merge on each level is n. So to merge all we got O(lg(n/k)*n)
+c.
+For both we have: O(nk + n lg(n/k))
+--

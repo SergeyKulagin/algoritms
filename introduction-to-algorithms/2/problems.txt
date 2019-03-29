@@ -9,4 +9,30 @@ but the initial length not 1 but k. So we have n/k arrays which gives us lg(n/k)
 The size of merge on each level is n. So to merge all we got O(lg(n/k)*n)
 c.
 For both we have: O(nk + n lg(n/k))
+d. the size of k should be = the input for which merge sort is faster than quick sort.
+This can be experimentally found by running different size inputs on the quick sort vs merge sort.
 --
+
+2-2
+a.
+Besides the fact that each rightmost element is bigger and size is equal we should prove:
+that the elements are the same as they were in original
+b. c.
+Loop invariant:
+the subarray A[1..i] is sorted and has minimum elements from the array.
+Proof:
+1) initialization: A - empty element array is sorted by definition
+2) lets i = k. So A[1..k] is sorted and has minimum elements from the array.
+The next iteration we go from the end of array to the (k + 1)+1 = k + 2, exchanging values
+if the leftmost element is smaller.
+When j = k + 1 => the element in k+1 position is the smallest one in the
+right subarray  A[k + 1, A.length]. Since the left subarray holds invariant the A[1..k+1]
+holds the invariant.
+3) termination:
+the loop terminates when i = A.length - 1,
+in inner loop we have j = A.length and if needed we exchange A[A.length] and A[A.length - 1]
+Since invariant holds till A.length - 2 the A[1..A.length - 2] is sorted and have minimal elements.
+What is left is to deal with the A[A.length-1] and A[A.length] what we essentially do on the termination step.
+d. the worst case is equal to the best case = O(n^2). The worst case is the same for the insertion sort
+but in other cases insertion sort does better.
+

@@ -36,3 +36,9 @@ What is left is to deal with the A[A.length-1] and A[A.length] what we essential
 d. the worst case is equal to the best case = O(n^2). The worst case is the same for the insertion sort
 but in other cases insertion sort does better.
 
+2-3
+Horner's rule
+a. O(n)
+b. O(n^2)
+c.
+

@@ -40,5 +40,17 @@ but in other cases insertion sort does better.
 Horner's rule
 a. O(n)
 b. O(n^2)
-c.
+c. todo
+d. todo
+
+2-4
+a.
+[2,3,8,6,1]
+(8,6), (6,1), (2,1), (3,1), (8,1)
+b.
+the array is (n, n-1, ..., 1}. The number of inversions is the sum of the arithmentic progression
+from 1...n-1 =  (1 + n)/2*n -n
+c. in case of desc sort the if number of inversions in max - the sort time will be the fastest O(n)
+in case of asc sort if number of inversion is max - sort will be the slowest O(n)
+d. see the code
 

@@ -26,3 +26,16 @@ It says about the worst-case running time.
 2^(n+1) <= c * 2n => 2 <= c
 2^2n <= c* 2^n  => 2^n <=c
 => so incorrect cause for any constant c when n goes to infinity 2^n will eventually become bigger
+
+3.1-5
+(proved on paper)
+
+3.1-7
+we have
+0 <= f1(n) < c1 g(n) - for little o
+0 <=  c2 g(n) < f2(n) - for little omega
+=> f1(n)/c1 < g(n) < f2(n)/c2.
+choosing n0 = max(n01,n02), for n > n0 the intersection of two sets is indeed emtpy set.
+
+3.1-8
+(given on paper)

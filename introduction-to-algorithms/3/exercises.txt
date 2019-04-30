@@ -1,0 +1,28 @@
+3.1-1
+Let's rewrite as theta definition:
+c1 * (f(n) + g(n)) <= max(f(n),g(n)) <= c2 * (f(n) + g(n))
+Let's suppose that f(n) is max, we get:
+c1 * (f(n) + g(n)) <= f(n) <= c2 * (f(n) + g(n))
+and divide by the function:
+c1 * (1 + g(n)/f(n) <= 1 <= c2 * (1 + g(n)/f(n))
+since f(n) > g(n), g(n)/f(n) < 1. Let's replace it with upper bound 1
+2*c1 <= 1 <= 2*c2
+So if c1 <= 0.5 and c2 >= 0.5 that satisfy the theta notation.
+
+3.1-2
+Let's rewrite as theta definition:
+c1 * n^b <= (n + a)^b <= c2 * n^b
+the middle of the formula can be transformed to binomial theorem:
+(n+a)^b = k1 * n^b + k2 * n^(b-1) ... + kb * a^b
+if we divide the inequality on n^b and when n goes to infinity we get:
+c1 <= k1 <= c2 ,where k1 is the first binomial koef and we get:
+c1 <= 1 <= c2, so the constants are c1 <=1, c2 >=1
+
+3.1-3
+Because O(f(n)) is an upper bound of the running time.
+It says about the worst-case running time.
+
+3.1-4
+2^(n+1) <= c * 2n => 2 <= c
+2^2n <= c* 2^n  => 2^n <=c
+=> so incorrect cause for any constant c when n goes to infinity 2^n will eventually become bigger

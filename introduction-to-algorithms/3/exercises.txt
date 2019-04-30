@@ -39,3 +39,13 @@ choosing n0 = max(n01,n02), for n > n0 the intersection of two sets is indeed em
 
 3.1-8
 (given on paper)
+
+==========================
+3.2-1
+initial:
+f(n) >= f(m), n >= m
+g(n) >= g(m), n >= m
+
+- summing them we got f(n) + g(n) >= f(m) + g(m), for n >= m
+- f(g(n)): given g(n) >= g(m) when n >= m => we got f(g(n)) >= f(g(n)) when n>=m
+- f(n)*g(n):  when n >= m we multiple bigger numbers (positive), so f(n) * g(n) >= f(m) * g(m) when n >= m

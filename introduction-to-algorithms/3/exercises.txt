@@ -51,28 +51,36 @@ g(n) >= g(m), n >= m
 - f(n)*g(n):  when n >= m we multiple bigger numbers (positive), so f(n) * g(n) >= f(m) * g(m) when n >= m
 
 3.2-2
+=========formula=========
 a^(log_b(c))=c^(log_b(a));
 c^(log_b(a))=c^(log_c(a)/log_c(b))
 =c^(log_c(a)*(log_c(b))^-1)=
 =(c^(log_c(a)))^((log_c(b))^-1)=a^(log_b(c))
+=========formula=========
 
 see http://asciimath.org/
 
 3.2-3
 - the upper bound is trivial:
+=========formula=========
 log(n!) <= c*n*log(n);
 log(1)+log(2)+..+log(n) <=
 log(n)+log(n)+...+log(n)
+=========formula=========
 - the lower bound is harder:
+=========formula=========
 c*n*log(n)<= log(n!);
 log(n!) = log(1)+log(2)+..+log(n) >=
 log(n/2) + ... log(n) >= log(n/2) + log(n/2) + ..log(n/2)=
 n/2*log(n/2)
+=========formula=========
 Now we need to prove that:
+=========formula=========
 c*n*log(n) <= n/2*log(n/2);
 c*log(n) <= log(n/2);
 c <= log(n/2)/log(n)=log_n(n/2)=
 log_n(n)-log_n(2)=1-log_n(2)
+=========formula=========
 so, the c is (0,1)
 
 

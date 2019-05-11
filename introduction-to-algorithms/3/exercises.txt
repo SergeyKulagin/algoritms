@@ -61,26 +61,33 @@ c^(log_b(a))=c^(log_c(a)/log_c(b))
 see http://asciimath.org/
 
 3.2-3
+1)
 - the upper bound is trivial:
-=========formula=========
 log(n!) <= c*n*log(n);
 log(1)+log(2)+..+log(n) <=
 log(n)+log(n)+...+log(n)
-=========formula=========
 - the lower bound is harder:
-=========formula=========
 c*n*log(n)<= log(n!);
 log(n!) = log(1)+log(2)+..+log(n) >=
 log(n/2) + ... log(n) >= log(n/2) + log(n/2) + ..log(n/2)=
 n/2*log(n/2)
-=========formula=========
 Now we need to prove that:
-=========formula=========
 c*n*log(n) <= n/2*log(n/2);
 c*log(n) <= log(n/2);
 c <= log(n/2)/log(n)=log_n(n/2)=
 log_n(n)-log_n(2)=1-log_n(2)
-=========formula=========
 so, the c is (0,1)
+
+2)
+c*2^n<=n!; c(2*2...2)<=1*2..n;
+1*2...*n>=2*2*..*2*n;2*c=n
+for any c we can get n big enough.
+
+3)
+n!<c*n^n; 1*2*..*n < c * n*n...*n;
+1/n*2/n*...(n-1)/n < c
+the left part limits to 0 when n goes to infinity.
+So for any c we can get n0
+
 
 

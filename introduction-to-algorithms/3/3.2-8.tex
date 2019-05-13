@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+    Prove that:
+    \begin{align}
+        k\cdot ln(n)=\theta(n)
+    \end{align}
+
+    implies:
+    \begin{align}
+        k = \theta(\frac{n}{ln(n)})
+    \end{align}
+
+    Let's write it in theta notation:
+    \begin{align}
+        c_1 \cdot n \leq k \cdot ln(k) \leq c_2 \cdot n
+    \end{align}
+
+    and
+    \begin{align}
+        c_1 \cdot \frac{n}{ln(n)} \leq k \leq c_2 \cdot \frac{n}{ln(n)}
+    \end{align}
+
+    considering both we can write:
+    \begin{align}
+          c_1 \cdot n \leq c_{2} \cdot \frac{n}{ln(n)} \cdot ln(\frac{n}{ln(n)})
+    \end{align}
+
+    next step:
+    \begin{align}
+          c \leq \frac{1}{ln(n)} \cdot (ln(n)-ln(ln(n)))
+    \end{align}
+
+    next step:
+    \begin{align}
+          c \leq 1 - \frac{ln(ln(n))}{ln(n)}
+    \end{align}
+
+    as we can see
+    \begin{align}
+          \lim_{x\to\infty} \frac{ln(ln(n))}{ln(n)} = 0
+    \end{align}
+
+    so the left part goes to 0 and we can find c to satisfy the equation:
+    \begin{align}
+          c = \left( 0,1 \right)
+    \end{align}
+
+    similarly for the right part of the equation:
+     \begin{align}
+          c = \left( 1, \infty)
+    \end{align}
+
+
+\end{document}

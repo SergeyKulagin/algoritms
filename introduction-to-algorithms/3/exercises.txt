@@ -89,5 +89,16 @@ n!<c*n^n; 1*2*..*n < c * n*n...*n;
 the left part limits to 0 when n goes to infinity.
 So for any c we can get n0
 
+3.2-4 - 3.2-5
+To do in the future, the tasks are with stars (*)
+
+3.2-6
+Just put the number (phi and conjugate phi) into the equation.
+
+3.2-7
+skipped
+
+3.2-8
+see latex files
 
 

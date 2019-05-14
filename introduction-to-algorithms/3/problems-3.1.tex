@@ -11,4 +11,18 @@
     \begin{align}
         p(n) = O(n^k), k \geq d
     \end{align}
+
+    let's rewrite it with definition of O
+
+    \begin{align}
+        p(n) \leq C \cdot n^k
+    \end{align}
+
+    we can take the lower bound of k = d and C = d * max(ai)
+    \begin{align}
+        a_1 \cdot n + a_2 \cdot n^2 + ... + a_d \cdot n^d = max(a_i) \cdot (n^d  + ... + n^d)
+    \end{align}
+
+    Similarly, you can prove to other formulas (b,c,d,e)
+
 \end{document}

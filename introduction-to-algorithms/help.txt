@@ -9,3 +9,8 @@ recurrence formula - when we can express f(n) through f(n-1). E.g n! = (n-1)! * 
 LATEX SUPPORT:
 https://gist.github.com/rain1024/98dd5e2c6c8c28f9ea9d
 https://github.com/Ruben-Sten/TeXiFy-IDEA/wiki/Features
+
+
+See  L'Hospital's rule
+http://tutorial.math.lamar.edu/Classes/CalcI/LHospitalsRule.aspx
+https://www.mathsisfun.com/calculus/derivatives-rules.html

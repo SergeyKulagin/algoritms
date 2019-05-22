@@ -14,3 +14,6 @@ https://github.com/Ruben-Sten/TeXiFy-IDEA/wiki/Features
 See  L'Hospital's rule
 http://tutorial.math.lamar.edu/Classes/CalcI/LHospitalsRule.aspx
 https://www.mathsisfun.com/calculus/derivatives-rules.html
+
+Stirling's approximation
+https://en.wikipedia.org/wiki/Stirling%27s_approximation

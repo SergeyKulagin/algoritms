@@ -6,7 +6,6 @@
 
 % Document
 \begin{document}
-
     \begin{table}[]
         \begin{tabular}{|l|l|l|l|l|l|l|l|}
             \hline
@@ -16,7 +15,7 @@
             \sqrt{n} &  n^{sin(n)} & no & no & no & no & no & sin fluctuates from -1 to 1\\
             2^n & 2^{n/2} & no & no & yes & yes & no & divide one on another\\
             n^{lg(c)}& c^{ln(n)} & yes & no & yes & no & no & use LHospitalsRule \\
-            lg(n!)& ln(n^n) & & & & & &\\
+            lg(n!)& ln(n^n) & yes & yes & no & no & no & Stirling's approximation\\
             \hline
         \end{tabular}
     \end{table}

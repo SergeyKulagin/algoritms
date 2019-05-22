@@ -9,6 +9,7 @@ recurrence formula - when we can express f(n) through f(n-1). E.g n! = (n-1)! * 
 LATEX SUPPORT:
 https://gist.github.com/rain1024/98dd5e2c6c8c28f9ea9d
 https://github.com/Ruben-Sten/TeXiFy-IDEA/wiki/Features
+https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols  - syntax
 
 
 See  L'Hospital's rule

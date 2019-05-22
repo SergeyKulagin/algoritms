@@ -8,15 +8,15 @@
 \begin{document}
 
     \begin{table}[]
-        \begin{tabular}{|l|l|l|l|l|l|l|}
+        \begin{tabular}{|l|l|l|l|l|l|l|l|}
             \hline
-            A & B & O & o & \Omega & \omega & \theta  \\
-            lg^k n & n^\epsilon & yes & yes (by the rule) & no & no & no \\
-            n^k & c^n & yes & yes & & &  \\
-            & & & & & &  \\
-            & & & & & &  \\
-            & & & & & &  \\
-            & & & & & & \\
+            A & B & O & o & \Omega & \omega & \theta & comment  \\
+            lg^k n & n^\epsilon & yes & yes (by the rule) & no & no & no & \\
+            n^k & c^n & yes & yes & & & & \\
+            \sqrt{n} &  n^{sin(n)} & no & no & no & no & no & sin fluctuates from -1 to 1\\
+            2^n & 2^{n/2} & no & no & yes & yes & no & divide one on another\\
+            n^{lg(c)}& c^{ln(n)} & yes & no & yes & no & no & use LHospitalsRule \\
+            lg(n!)& ln(n^n) & & & & & &\\
             \hline
         \end{tabular}
     \end{table}

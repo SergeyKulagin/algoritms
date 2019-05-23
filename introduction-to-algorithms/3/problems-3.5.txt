@@ -1,0 +1,16 @@
+a)
+f(n) and g(n) are asymptotically nonnegative.
+
+Either is true:
+- f(n) <= c g(n) , c exists, n >= n0
+- f(n) >= c g(n) , c exists, for infinite n numbers (omega infinity)
+- both
+
+a function (here) can be either monotonic increasing, decreasing, fluctuating (like sin, cos)
+1. if one of the functions is monotonic increasing or decreasing the conjecture is true
+cause we can use limit.
+b. if 1 of the functions is fluctuation the omega infinity holds with specific constants
+though big omeg not because it have n > n0
+
+
+

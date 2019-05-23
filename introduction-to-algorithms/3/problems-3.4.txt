@@ -42,5 +42,9 @@ Using LHospitalsRule we can find the limit as:
 lim (f(2n)/f(n)) = lim (f'(2n)/f'(n)) = lim(2 f'(n)/f'(n))= 2
 So we can always find the constants c1 and c2 and the conjecture is correct.
 
-h.
+h. f(n) + o(f(n)) = theta(f(n))
+so o(f(n)) <=  c f(n) for every c
+c1 f(n) <= f(n) + c3 f(n) <= c2 f(n)
+c1 f(n) <= f(n) (1 + c3) <= c2 f(n)
+so if we take c1 <= 1 + c3 and c2 >= 1 + c3 the conjecture is correct
 

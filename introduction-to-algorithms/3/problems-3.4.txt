@@ -17,3 +17,9 @@ c.
 if f(n) is monotonically increasing function, then for x1 >= x2 => f(x1) >= f(x2)
 Since lg(n) is monotonically increasing function we can say that
 1) implies 2)  (restriction in the book lg(g(n)) >= 1 and f(n) >= 1
+
+d. Similar to c.
+Since 2^x is monotonically increasing function (x >= 0)
+and we have f(n) = O(g(n)), the 2^(f(n)) = O(2^(f(n)))
+
+e.

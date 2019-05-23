@@ -10,3 +10,10 @@ c1 * (1 + g(n)/f(n)) <= 1 <=c2 * (f(n) + g(n))
 c1 * (1 + g(n)/f(n)) <= 1  - since g(n) is bigger then f(n) when n goes to infinity
 the left part goes to infinity so the conjecture is wrong
 
+c.
+1) f(n) = O(g(n)) => f(n) <= c * g(n)
+2) lg(f(n)) = O(ln(g(n))) => lg(f(n)) <= c * lg(g(n))
+
+if f(n) is monotonically increasing function, then for x1 >= x2 => f(x1) >= f(x2)
+Since lg(n) is monotonically increasing function we can say that
+1) implies 2)  (restriction in the book lg(g(n)) >= 1 and f(n) >= 1

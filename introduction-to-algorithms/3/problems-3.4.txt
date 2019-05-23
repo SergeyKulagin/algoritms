@@ -22,4 +22,25 @@ d. Similar to c.
 Since 2^x is monotonically increasing function (x >= 0)
 and we have f(n) = O(g(n)), the 2^(f(n)) = O(2^(f(n)))
 
-e.
+e. f(n) = O((f(n))^2)
+not true for asymptotically positive functions
+f(n) <= c (f(n))^2
+1 <= c f(n)
+if it's monotonically decreasing function (1/n), for any c f(n) -> 0  to it's not correct.
+
+f. f(n) = O(g(n)) => g(n) = big-omega(f(n))
+
+- f(n) <= c g(n)
+- c f(n) <= g(n) == f(n) <= 1/c g(n) == f(n) <= c1 g(n)
+which proves the conjecture
+
+g. f(n) = theta (f(n/2))
+we can rewrite that as f(2n) = theta(f(n))
+c1 f(n) <= f(2n) <= c2 f(n)
+c1 <= f(2n)/f(n) <= c2
+Using LHospitalsRule we can find the limit as:
+lim (f(2n)/f(n)) = lim (f'(2n)/f'(n)) = lim(2 f'(n)/f'(n))= 2
+So we can always find the constants c1 and c2 and the conjecture is correct.
+
+h.
+

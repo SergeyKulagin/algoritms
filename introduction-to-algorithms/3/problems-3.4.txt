@@ -1,0 +1,3 @@
+3-4 Asymptotic notation properties
+a. f(n) = O(g(n)) implies g(n) = O(f(n))
+Can be proved by contr exapmle n = O(n^2) but not vice versa n^2 = O(n)

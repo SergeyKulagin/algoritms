@@ -13,4 +13,16 @@ b. if 1 of the functions is fluctuation the omega infinity holds with specific c
 though big omeg not because it have n > n0
 
 
+b)
+omega-infinity - defines asymptotic lower bound for n> n0
+big-omega   - defines asymptotic lower bound for infinite number of n
+
+the omega-infinity works for infinite number of sizes
+the big-omega works for sizes of input n > n0
+
+the big-omega can show how the algorithm behaves for big enough input sizes
+while omega-infinity shows how the algorithm behaves based on the number of calls of the alogrithm
+
+c) todo
+
 

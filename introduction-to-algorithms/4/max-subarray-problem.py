@@ -2,16 +2,18 @@ import sys
 
 
 def findMaxSubArray(a):
-    return findMaxSubArrayRecStep(a, 0, len(a))
+    if len(a) == 0:
+        return SubArrayInfo(None, None, None)
+    return findMaxSubArrayRecStep(a, 0, len(a) - 1)
 
 
 def findMaxSubArrayRecStep(a, start, end):
     if start >= end - 1:
-        return SubArrayInfo(float('-inf'), float('-inf'), float('-inf'))
+        return SubArrayInfo(start, start, a[start])
     middle = round((start + end) / 2)
     leftMaxSubArrayInfo = findMaxSubArrayRecStep(a, start, middle)
     rightMaxSubArrayInfo = findMaxSubArrayRecStep(a, middle, end)
-    middleMaxSubArrayInfo = findMaxSubArrayFromPoint(a, middle)
+    middleMaxSubArrayInfo = findMaxSubArrayFromPoint(a, start, end, middle)
     maxSubArrayInfo = max(max(leftMaxSubArrayInfo, rightMaxSubArrayInfo), middleMaxSubArrayInfo)
     return maxSubArrayInfo
 
@@ -23,22 +25,32 @@ def max(subArrayInfoFirst, subArrayInfoSecond):
         return subArrayInfoSecond
 
 
-def findMaxSubArrayFromPoint(a, point):
-    leftSubArray = findMaxSubArrayFromPointDirected(a, point, -1)
-    rightSubArray = findMaxSubArrayFromPointDirected(a, point, 1)
-    return SubArrayInfo(leftSubArray.start, rightSubArray.end, leftSubArray.sum + rightSubArray.sum)
-
-
-def findMaxSubArrayFromPointDirected(a, point, directionIndex):
+def findMaxSubArrayFromPointLeft(a, point, to):
     sum = 0
-    maxSubArrayInfo = SubArrayInfo(float('-inf'), float('-inf'), float('-inf'))
-    for k in range(point, 0, directionIndex):
+    maxSubArrayInfo = SubArrayInfo(point, point, float('-inf'))
+    for k in range(point, to, -1):
         sum = sum + a[k]
         if sum > maxSubArrayInfo.sum:
-            maxSubArrayInfo.sum = sum
             maxSubArrayInfo.start = k
-
+            maxSubArrayInfo.sum = sum
     return maxSubArrayInfo
+
+
+def findMaxSubArrayFromPointRight(a, point, to):
+    sum = 0
+    maxSubArrayInfo = SubArrayInfo(point, point, float('-inf'))
+    for k in range(point, to, 1):
+        sum = sum + a[k]
+        if sum > maxSubArrayInfo.sum:
+            maxSubArrayInfo.end = k
+            maxSubArrayInfo.sum = sum
+    return maxSubArrayInfo
+
+
+def findMaxSubArrayFromPoint(a, start, end, middle):
+    leftSubArray = findMaxSubArrayFromPointLeft(a, middle, start)
+    rightSubArray = findMaxSubArrayFromPointRight(a, middle + 1, end)
+    return SubArrayInfo(leftSubArray.start, rightSubArray.end, leftSubArray.sum + rightSubArray.sum)
 
 
 class SubArrayInfo:
@@ -46,8 +58,29 @@ class SubArrayInfo:
         self.start = start
         self.end = end
         self.sum = sum
+
     def __repr__(self):
         return "[" + str(self.start) + ", " + str(self.end) + "], sum = " + str(self.sum)
 
 
+print(findMaxSubArrayFromPointLeft(
+    [13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4],
+    6,
+    0
+))
+
+print(findMaxSubArrayFromPointRight(
+    [13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4],
+    7,
+    15
+))
+
+print(findMaxSubArrayFromPoint(
+[13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4],
+    0,
+    15,
+    6
+))
+
 print(findMaxSubArray([13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4]))
+print(findMaxSubArray([]))

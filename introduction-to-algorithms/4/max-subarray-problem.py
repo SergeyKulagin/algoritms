@@ -1,5 +1,4 @@
-import sys
-
+import math
 
 def findMaxSubArray(a):
     if len(a) == 0:
@@ -8,11 +7,11 @@ def findMaxSubArray(a):
 
 
 def findMaxSubArrayRecStep(a, start, end):
-    if start >= end - 1:
+    if start == end:
         return SubArrayInfo(start, start, a[start])
-    middle = round((start + end) / 2)
+    middle = math.floor((start + end) / 2)
     leftMaxSubArrayInfo = findMaxSubArrayRecStep(a, start, middle)
-    rightMaxSubArrayInfo = findMaxSubArrayRecStep(a, middle, end)
+    rightMaxSubArrayInfo = findMaxSubArrayRecStep(a, middle + 1, end)
     middleMaxSubArrayInfo = findMaxSubArrayFromPoint(a, start, end, middle)
     maxSubArrayInfo = max(max(leftMaxSubArrayInfo, rightMaxSubArrayInfo), middleMaxSubArrayInfo)
     return maxSubArrayInfo
@@ -38,7 +37,7 @@ def findMaxSubArrayFromPointLeft(a, point, to):
 
 def findMaxSubArrayFromPointRight(a, point, to):
     sum = 0
-    maxSubArrayInfo = SubArrayInfo(point, point, float('-inf'))
+    maxSubArrayInfo = SubArrayInfo(point, point, a[point])
     for k in range(point, to, 1):
         sum = sum + a[k]
         if sum > maxSubArrayInfo.sum:
@@ -51,6 +50,25 @@ def findMaxSubArrayFromPoint(a, start, end, middle):
     leftSubArray = findMaxSubArrayFromPointLeft(a, middle, start)
     rightSubArray = findMaxSubArrayFromPointRight(a, middle + 1, end)
     return SubArrayInfo(leftSubArray.start, rightSubArray.end, leftSubArray.sum + rightSubArray.sum)
+
+
+#===========================
+# brute force
+
+def findMaxSubArrayBruteForce(a):
+    maxSubArray = SubArrayInfo(None, None, float('-inf'))
+    for i in range(0, len(a)):
+        sum = 0
+
+        for j in range(i, len(a)):
+            sum = sum + a[j]
+            if sum > maxSubArray.sum:
+                maxSubArray.sum = sum
+                maxSubArray.start = i
+                maxSubArray.end = j
+    return maxSubArray
+
+
 
 
 class SubArrayInfo:
@@ -83,4 +101,8 @@ print(findMaxSubArrayFromPoint(
 ))
 
 print(findMaxSubArray([13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4]))
+print(findMaxSubArrayBruteForce([13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4]))
 print(findMaxSubArray([]))
+
+print(findMaxSubArray([-5,-1, -3, -2, -10]))
+print(findMaxSubArrayBruteForce([-5,-1, -3, -2, -10]))

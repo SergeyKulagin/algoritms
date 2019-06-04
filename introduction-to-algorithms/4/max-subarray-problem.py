@@ -90,6 +90,19 @@ def findMaxSubArrayRecStepDelegating(a, start, end, minRecursiveProblemSize):
 
 #===========================
 
+#todo fix
+def findMaxSubArrayLinear(a):
+    maxSubArray = SubArrayInfo(0, 0, a[0])
+    for i in range(0, len(a)):
+        sum = 0
+        for j in  range(i, maxSubArray.start - 1, -1):
+            sum = sum + a[j]
+            if sum > maxSubArray.sum:
+                maxSubArray.sum = sum
+                maxSubArray.start = j
+                maxSubArray.end = i
+    return maxSubArray
+
 
 class SubArrayInfo:
     def __init__(self, start, end, sum):
@@ -170,3 +183,7 @@ print(findMaxSubArray([-962, -949, -919, -882, -857, -853, -851, -844, -828, -81
 endTime = datetime.datetime.now()
 duration = endTime - startTime
 print("findMaxSubArray, duration: " + str(duration.microseconds))
+
+
+print(findMaxSubArrayLinear([-962, -949, -919, -882, -857, -853, -851, -844, -828, -815, -783, -755, -733, -697, -694, -685, -592, -546, -461, -458, -420, -323, -156, -140, -113, -61, -38, 50, 55, 106, 179, 204, 244, 261, 267, 281, 417, 497, 498, 579, 732, 741, 806, 828, 829, 867, 892, 919, 921, 948
+]))

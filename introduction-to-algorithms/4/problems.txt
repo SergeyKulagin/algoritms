@@ -1,0 +1,9 @@
+4.1-4
+- find the maximum sub array
+- if the sum <0, return empty subarray with sum = 0
+
+4.1-5
+todo
+kadane's algorithm
+
+

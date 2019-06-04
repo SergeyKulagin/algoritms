@@ -56,6 +56,8 @@ def findMaxSubArrayFromPoint(a, start, end, middle):
 # brute force
 
 def findMaxSubArrayBruteForce(a):
+    if len(a) == 0:
+        return SubArrayInfo(None, None, None)
     maxSubArray = SubArrayInfo(None, None, float('-inf'))
     for i in range(0, len(a)):
         sum = 0
@@ -103,6 +105,7 @@ print(findMaxSubArrayFromPoint(
 print(findMaxSubArray([13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4]))
 print(findMaxSubArrayBruteForce([13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4]))
 print(findMaxSubArray([]))
+print(findMaxSubArrayBruteForce([]))
 
 print(findMaxSubArray([-5,-1, -3, -2, -10]))
 print(findMaxSubArrayBruteForce([-5,-1, -3, -2, -10]))

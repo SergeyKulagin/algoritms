@@ -1,3 +1,4 @@
+#todo there is a way to do the recursive multiplication without copying?
 def squareMatrixMultiplyRecursive(a, b):
     size = len(a)
     c = createEmptyMatrix(size)

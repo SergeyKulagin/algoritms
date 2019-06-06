@@ -1,8 +1,7 @@
-#todo there is a way to do the recursive multiplication without copying?
 def squareMatrixMultiplyRecursive(a, b):
     size = len(a)
-    c = createEmptyMatrix(size)
     if size == 1:
+        c = createEmptyMatrix(size)
         c[0][0] = a[0][0] * b[0][0]
         return c
 
@@ -52,6 +51,54 @@ def squareMatrixMultiplyDirect(a, b):
             c[i][j] = res
     return c
 
+
+def squareMatrixMultiplyStrassen(a, b):
+    size = len(a)
+    if size == 1:
+        c = createEmptyMatrix(size)
+        c[0][0] = a[0][0] * b[0][0]
+        return c
+
+    stepSize = int(size / 2)
+
+    a11 = subMatrix(a, 0, 0, stepSize)
+    a12 = subMatrix(a, 0, stepSize, stepSize)
+    a21 = subMatrix(a, stepSize, 0, stepSize)
+    a22 = subMatrix(a, stepSize, stepSize, stepSize)
+    b11 = subMatrix(b, 0, 0, stepSize)
+    b12 = subMatrix(b, 0, stepSize, stepSize)
+    b21 = subMatrix(b, stepSize, 0, stepSize)
+    b22 = subMatrix(b, stepSize, stepSize, stepSize)
+
+    s1 = matrixSubstract(b12, b22)
+    s2 = matrixSum(a11, a12)
+    s3 = matrixSum(a21, a22)
+    s4 = matrixSubstract(b21, b11)
+    s5 = matrixSum(a11, a22)
+    s6 = matrixSum(b11, b22)
+    s7 = matrixSubstract(a12, a22)
+    s8 = matrixSum(b21, b22)
+    s9 = matrixSubstract(a11, a21)
+    s10 = matrixSum(b11, b12)
+
+    p1 = squareMatrixMultiplyStrassen(a11, s1)
+    p2 = squareMatrixMultiplyStrassen(s2, b22)
+    p3 = squareMatrixMultiplyStrassen(s3, b11)
+    p4 = squareMatrixMultiplyStrassen(a22, s4)
+    p5 = squareMatrixMultiplyStrassen(s5, s6)
+    p6 = squareMatrixMultiplyStrassen(s7, s8)
+    p7 = squareMatrixMultiplyStrassen(s9, s10)
+
+
+    c11 = matrixSum(matrixSubstract(matrixSum(p5, p4), p2), p6)
+    c12 = matrixSum(p1, p2)
+    c21 = matrixSum(p3, p4)
+    c22 = matrixSubstract(matrixSubstract(matrixSum(p5, p1), p3), p7)
+
+    return toMatrix(c11, c12, c21, c22)
+
+
+
 def subMatrix(m, line, col, size):
     sub = createEmptyMatrix(size)
     for i in range(0, size):
@@ -89,6 +136,23 @@ def matrixSum(c1, c2):
 
     return c
 
+
+def matrixSum(c1, c2):
+    size = len(c1)
+    c = createEmptyMatrix(size)
+    for i in range(0, size):
+        for j in range(0, size):
+            c[i][j] = c1[i][j] + c2[i][j]
+    return c
+
+def matrixSubstract(c1, c2):
+    size = len(c1)
+    c = createEmptyMatrix(size)
+    for i in range(0, size):
+        for j in range(0, size):
+            c[i][j] = c1[i][j] - c2[i][j]
+    return c
+
 def createEmptyMatrix(size):
     res = [None] * size
     for i in range(size):
@@ -118,6 +182,17 @@ print(squareMatrixMultiplyRecursive(
     ]
 ))
 
+print(squareMatrixMultiplyStrassen(
+    [
+        [1, 2],
+        [3, 4]
+    ],
+    [
+        [5, 6],
+        [7, 8]
+    ]
+))
+
 print(squareMatrixMultiplyDirect(
     [
         [3, 5, 9, 7],
@@ -134,6 +209,21 @@ print(squareMatrixMultiplyDirect(
 ))
 
 print(squareMatrixMultiplyRecursive(
+    [
+        [3, 5, 9, 7],
+        [2, 8, 4, 4],
+        [9, 2, 8, 4],
+        [3, 5, 3, 7]
+    ],
+    [
+        [7, 1, 2, 1],
+        [0, 8, 0, 1],
+        [1, 5, 7, 6],
+        [5, 1, 2, 0]
+    ]
+))
+
+print(squareMatrixMultiplyStrassen(
     [
         [3, 5, 9, 7],
         [2, 8, 4, 4],
@@ -161,6 +251,17 @@ print(squareMatrixMultiplyDirect(
 ))
 
 print(squareMatrixMultiplyRecursive(
+    [
+        [1, 3],
+        [7, 5]
+    ],
+    [
+        [6, 8],
+        [4, 2]
+    ]
+))
+
+print(squareMatrixMultiplyStrassen(
     [
         [1, 3],
         [7, 5]

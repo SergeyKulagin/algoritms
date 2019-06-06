@@ -147,3 +147,26 @@ print(squareMatrixMultiplyRecursive(
         [5, 1, 2, 0]
     ]
 ))
+
+
+print(squareMatrixMultiplyDirect(
+    [
+        [1, 3],
+        [7, 5]
+    ],
+    [
+        [6, 8],
+        [4, 2]
+    ]
+))
+
+print(squareMatrixMultiplyRecursive(
+    [
+        [1, 3],
+        [7, 5]
+    ],
+    [
+        [6, 8],
+        [4, 2]
+    ]
+))

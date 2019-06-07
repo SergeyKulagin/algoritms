@@ -23,3 +23,16 @@ since we extend the original matrices on 1 dimensions in the theta notation
 the complexity remains the same. Plus extending the matrices takes complexity
 proportional to n which is ignored in theta notation.
 
+4.2-4
+
+4.2-5
+If understood correctly the V.Pan method, the complexity is defined by the number of multiplications.
+Let's compare the methods
+                   68 x 68  70 x 70  72 x 72
+V.Pan              132,464  143,640  155,424
+divide-and-conquer 314,432  343,000  373,248
+Strassen           139,477  151,302  163,754
+
+We can see that this method yields into better performance then plain divide-and-conquer algorithm.
+It's also slight better then Strassen's algorithm
+

@@ -51,8 +51,19 @@ def squareMatrixMultiplyDirect(a, b):
             c[i][j] = res
     return c
 
-
 def squareMatrixMultiplyStrassen(a, b):
+    size = len(a)
+    if size % 2 != 0:
+        fillUpToSizePlusOne(a)
+        fillUpToSizePlusOne(b)
+    m = squareMatrixMultiplyStrassenRec(a, b)
+    if size % 2 != 0:
+        trimToSizeMinusOne(m)
+    return m
+
+
+
+def squareMatrixMultiplyStrassenRec(a, b):
     size = len(a)
     if size == 1:
         c = createEmptyMatrix(size)
@@ -81,13 +92,13 @@ def squareMatrixMultiplyStrassen(a, b):
     s9 = matrixSubstract(a11, a21)
     s10 = matrixSum(b11, b12)
 
-    p1 = squareMatrixMultiplyStrassen(a11, s1)
-    p2 = squareMatrixMultiplyStrassen(s2, b22)
-    p3 = squareMatrixMultiplyStrassen(s3, b11)
-    p4 = squareMatrixMultiplyStrassen(a22, s4)
-    p5 = squareMatrixMultiplyStrassen(s5, s6)
-    p6 = squareMatrixMultiplyStrassen(s7, s8)
-    p7 = squareMatrixMultiplyStrassen(s9, s10)
+    p1 = squareMatrixMultiplyStrassenRec(a11, s1)
+    p2 = squareMatrixMultiplyStrassenRec(s2, b22)
+    p3 = squareMatrixMultiplyStrassenRec(s3, b11)
+    p4 = squareMatrixMultiplyStrassenRec(a22, s4)
+    p5 = squareMatrixMultiplyStrassenRec(s5, s6)
+    p6 = squareMatrixMultiplyStrassenRec(s7, s8)
+    p7 = squareMatrixMultiplyStrassenRec(s9, s10)
 
 
     c11 = matrixSum(matrixSubstract(matrixSum(p5, p4), p2), p6)
@@ -105,6 +116,21 @@ def subMatrix(m, line, col, size):
         for j in range(0, size):
             sub[i][j] = m[i + line][j + col]
     return sub
+
+def fillUpToSizePlusOne(matrix):
+    size = len(matrix)
+    newSize = (size + 1)
+    for i in range(0, size):
+            matrix[i].append(0)
+    matrix.append([0] * newSize)
+
+
+def trimToSizeMinusOne(matrix):
+    size = len(matrix)
+    for i in range(0, size):
+            del matrix[i][-1]
+    del matrix[-1]
+
 
 def toMatrix(c11, c12, c21, c22):
     size = len(c11)
@@ -269,5 +295,33 @@ print(squareMatrixMultiplyStrassen(
     [
         [6, 8],
         [4, 2]
+    ]
+))
+
+
+print(squareMatrixMultiplyDirect(
+    [
+        [3, 5, 9],
+        [2, 8, 4],
+        [9, 2, 8]
+    ],
+    [
+        [7, 1, 2],
+        [0, 8, 0],
+        [1, 5, 7]
+    ]
+))
+
+
+print(squareMatrixMultiplyStrassen(
+    [
+        [3, 5, 9],
+        [2, 8, 4],
+        [9, 2, 8]
+    ],
+    [
+        [7, 1, 2],
+        [0, 8, 0],
+        [1, 5, 7]
     ]
 ))

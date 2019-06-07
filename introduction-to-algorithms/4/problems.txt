@@ -18,3 +18,8 @@ done in the code
 
 4.2-3
 Extend the matrix to be exact power of 2 with 0  - see code
+The algorithm has the same complexity as the original Strassen's:
+since we extend the original matrices on 1 dimensions in the theta notation
+the complexity remains the same. Plus extending the matrices takes complexity
+proportional to n which is ignored in theta notation.
+

@@ -1,3 +1,6 @@
 5.1-1
 Let's say we have a set of candidates R. Since according to the algorithm for each pair of candidates a, b we can
 define relation R which is the best and it means the A is a total relation that have total order.
+5.1-2
+The implementation could call RANDOM(0,1) b-a times and add the results to a
+The running time is f(b-a)

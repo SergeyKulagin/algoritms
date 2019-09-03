@@ -1,0 +1,3 @@
+5.1-1
+Let's say we have a set of candidates R. Since according to the algorithm for each pair of candidates a, b we can
+define relation R which is the best and it means the A is a total relation that have total order.

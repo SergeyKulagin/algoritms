@@ -4,3 +4,13 @@ define relation R which is the best and it means the A is a total relation that 
 5.1-2
 The implementation could call RANDOM(0,1) b-a times and add the results to a
 The running time is f(b-a)
+todo: others
+
+5.2-1
+Since number of permutations of the candidates is n! (uniform random permutations) for to chose only 1 it
+should go first we have 1 permutation for that. So probability is 1/n!
+Similarly for choosing n candidates. The should be sorted from lowest rank to highest and there is only
+1 permutation for that. So probability is 1/n! also.
+
+5.2-2
+todo

@@ -1,25 +1,42 @@
 # todo in progress
 class Solution(object):
     def findMedianSortedArrays(self, nums1, nums2):
-        p1 = 0
-        r1 = len(nums1) - 1
-        p2 = 0
-        r2 = len(nums2) - 1
+        (small, big) = (nums1, nums2) if len(nums1) < len(nums2) else (nums2, nums1)
+        full_len = len(nums1) + len(nums2)
+        median_index = (full_len / 2, full_len / 2 - 1) if full_len % 2 == 0 else (int(full_len / 2), int(full_len / 2))
+        if len(small) == 0:
+            return (big[median_index[0]] + big[median_index[1]]) / 2
 
-        while True:
-            if r1 > p1 and r2 > p2:
-                break
+        left = self.binarySearch_(big, small[0])[3]
+        right = self.binarySearch_(big, small[len(small) - 1])[2]
 
-            if r1 > p1:
-                m1 = int(r1 - p1) / 2
-            if r2 > p2:
-                m2 = int(r2 - p2) / 2
+        if left > median_index[1]:
+            return (big[median_index[0]] + big[median_index[1]]) / 2
+        if right < median_index[0]:
 
-            if nums1[m1] == nums2[m2]:
-                break
-            elif nums1[m1] < nums2[m2]:
-                p1 = m1 + 1
-                r2 = m2 - 1
+
+    def median(A, B): #todo
+
+    def binarySearch(A, p, r, el):
+        while p <= r:
+            m = int((r + p) / 2)
+            if A[m] == el:
+                return True, m, m - 1, m + 1
+            elif A[m] > el:
+                r = m - 1
+                left = r
+                right = m
             else:
-                r1 = m1 - 1
-                p2 = m2 + 1
+                p = m + 1
+                left = m
+                right = p
+        return False, m, left, right
+
+    def binarySearch_(A, el):
+        return Solution.binarySearch(A, 0, len(A) - 1, el)
+
+
+print(Solution.binarySearch_([1, 3, 5, 10], 7))
+print(Solution.binarySearch_([1, 3, 5, 10], 2))
+print(Solution.binarySearch_([1, 3, 5, 10], -1))
+print(Solution.binarySearch_([1, 3, 5, 10], 3))

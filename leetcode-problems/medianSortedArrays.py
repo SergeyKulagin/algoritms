@@ -83,21 +83,6 @@ class Solution(object):
 
         assert expectedMedian == res[0]
 
-    def binarySearch(A, p, r, el):
-        while p <= r:
-            m = int((r + p) / 2)
-            if A[m] == el:
-                return True, m, m, m
-            elif A[m] > el:
-                r = m - 1
-                left = r
-                right = m
-            else:
-                p = m + 1
-                left = m
-                right = p
-        return False, m, left, right
-
     def binarySearch_(A, el):
         return Solution.binarySearch(A, 0, len(A) - 1, el)
 

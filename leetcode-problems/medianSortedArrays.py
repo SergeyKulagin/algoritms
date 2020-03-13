@@ -5,7 +5,7 @@ from util import rand_array_sorted
 
 class Solution(object):
     def findMedianSortedArrays(self, nums1, nums2):
-        res = self.findMedianSortedArrays_(nums1, nums2)
+        res = self.findMedianSortedArrays_(self, nums1, nums2)
         median_el = res[0]
         return (median_el[0] + median_el[1]) / 2
 
@@ -24,7 +24,7 @@ class Solution(object):
         left_big_cursor = None
         while p <= r:
             m = int((p + r) / 2)
-            res = self.binarySearch(big, 0, len(big) - 1, small[m])
+            res = self.binarySearch(self, big, 0, len(big) - 1, small[m])
             cur_idx = res[2] + m + 1
             if cur_idx <= median_index[1]:
                 left_big_cursor = res[2]
@@ -48,7 +48,7 @@ class Solution(object):
             if one_point_median:
                 median_el = (small[left_small_cursor], small[left_small_cursor])
             else:
-                median_el = (self.biggest(big[left_big_cursor],
+                median_el = (self.biggest(self, big[left_big_cursor],
                                           big[left_big_cursor] if left_small_cursor == 0 else small[
                                               left_small_cursor - 1]), small[left_small_cursor])
         else:
@@ -145,9 +145,24 @@ def randomTest_randomArrayLength(test_num):
 
 # customTest()
 
-print(Solution.checkMedianSortedArrays(Solution, nums1=[61, 72, 87, 90, 95, 97],
-                                       nums2=[4, 13, 16, 16, 24, 29, 32, 57, 61, 72, 73, 75, 87, 90, 95, 97]))
-print(Solution.findMedianSortedArrays(Solution, nums1=[61, 72, 87, 90, 95, 97],
-                                      nums2=[4, 13, 16, 16, 24, 29, 32, 57, 61, 72, 73, 75, 87, 90, 95, 97]))
+
+print(Solution.findMedianSortedArrays(Solution(),
+                                 nums1=[1, 2],
+                                 nums2=[3, 4]))
+
+
+# [1,3]
+# [2]
+# [1, 2, 5, 7, 10]
+# [8, 9]
+# [1, 1, 1, 1, 1, 100, 100, 100]
+# [20, 20, 20, 30, 30]
+# [1, 2, 5, 7, 10]
+# []
+# [1,2]
+# [3,4]
+# [1,3]
+# [2]
+
 # randomTest_fixedArrayLength(1000000000000000)
 # randomTest_randomArrayLength(100000000000000)

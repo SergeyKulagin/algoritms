@@ -5,6 +5,11 @@ from util import rand_array_sorted
 
 class Solution(object):
     def findMedianSortedArrays(self, nums1, nums2):
+        res = self.findMedianSortedArrays_(nums1, nums2)
+        median_el = res[0]
+        return (median_el[0] + median_el[1]) / 2
+
+    def findMedianSortedArrays_(self, nums1, nums2):
         assert len(nums1) + len(nums2) > 0, "Both arrays are empty"
         (small, big) = (nums1, nums2) if len(nums1) < len(nums2) else (nums2, nums1)
         full_len = len(nums1) + len(nums2)
@@ -52,7 +57,7 @@ class Solution(object):
 
         return (median_el, median_index)
 
-    def binarySearch(A, p, r, el):
+    def binarySearch(self, A, p, r, el):
         while p <= r:
             m = int((r + p) / 2)
             if A[m] == el:
@@ -67,13 +72,13 @@ class Solution(object):
                 right = p
         return False, m, left, right
 
-    def biggest(num1, num2):
+    def biggest(self, num1, num2):
         return num1 if num1 > num2 else num2
 
     def checkMedianSortedArrays(self, nums1, nums2):
         if len(nums1) + len(nums2) == 0:
             return
-        res = self.findMedianSortedArrays(self, nums1, nums2)
+        res = self.findMedianSortedArrays_(self, nums1, nums2)
         sortedArr = sorted(nums1 + nums2)
         expectedMedian = sortedArr[res[1][0]], sortedArr[res[1][1]]
         print("---------")
@@ -88,8 +93,9 @@ class Solution(object):
 
 
 def customTest():
-    Solution.checkMedianSortedArrays(Solution, nums1=[1,1,1,1,1,100,100,100], nums2=[20,20,20,30,30])
-    Solution.checkMedianSortedArrays(Solution, nums1=[-30, -20,-10, -2,-1,1,100,100,100], nums2=[20,30,30, 10000,10000, 10000])
+    Solution.checkMedianSortedArrays(Solution, nums1=[1, 1, 1, 1, 1, 100, 100, 100], nums2=[20, 20, 20, 30, 30])
+    Solution.checkMedianSortedArrays(Solution, nums1=[-30, -20, -10, -2, -1, 1, 100, 100, 100],
+                                     nums2=[20, 30, 30, 10000, 10000, 10000])
     Solution.checkMedianSortedArrays(Solution, nums1=[1, 2, 5, 7, 10], nums2=[])
     Solution.checkMedianSortedArrays(Solution, nums1=[1, 2, 5, 7, 10], nums2=[-1])
     Solution.checkMedianSortedArrays(Solution, nums1=[1, 2, 5, 7, 10], nums2=[15])
@@ -137,6 +143,11 @@ def randomTest_randomArrayLength(test_num):
     print("stats: " + sorted(stats.items()).__repr__())
 
 
-customTest()
-#randomTest_fixedArrayLength(1000000000000000)
-#randomTest_randomArrayLength(100000000000000)
+# customTest()
+
+print(Solution.checkMedianSortedArrays(Solution, nums1=[61, 72, 87, 90, 95, 97],
+                                       nums2=[4, 13, 16, 16, 24, 29, 32, 57, 61, 72, 73, 75, 87, 90, 95, 97]))
+print(Solution.findMedianSortedArrays(Solution, nums1=[61, 72, 87, 90, 95, 97],
+                                      nums2=[4, 13, 16, 16, 24, 29, 32, 57, 61, 72, 73, 75, 87, 90, 95, 97]))
+# randomTest_fixedArrayLength(1000000000000000)
+# randomTest_randomArrayLength(100000000000000)

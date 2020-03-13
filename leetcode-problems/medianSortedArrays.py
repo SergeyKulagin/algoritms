@@ -19,7 +19,7 @@ class Solution(object):
         left_big_cursor = None
         while p <= r:
             m = int((p + r) / 2)
-            res = Solution.binarySearch(big, 0, len(big) - 1, small[m])
+            res = self.binarySearch(big, 0, len(big) - 1, small[m])
             cur_idx = res[2] + m + 1
             if cur_idx <= median_index[1]:
                 left_big_cursor = res[2]
@@ -43,14 +43,29 @@ class Solution(object):
             if one_point_median:
                 median_el = (small[left_small_cursor], small[left_small_cursor])
             else:
-                median_el = (Solution.biggest(big[left_big_cursor],
-                                              big[left_big_cursor] if left_small_cursor == 0 else small[
-                                                  left_small_cursor - 1]), small[left_small_cursor])
+                median_el = (self.biggest(big[left_big_cursor],
+                                          big[left_big_cursor] if left_small_cursor == 0 else small[
+                                              left_small_cursor - 1]), small[left_small_cursor])
         else:
             big_median_index = (median_index[0] - left_small_cursor - 1, median_index[1] - left_small_cursor - 1)
             median_el = (big[big_median_index[0]], big[big_median_index[1]])
 
         return (median_el, median_index)
+
+    def binarySearch(A, p, r, el):
+        while p <= r:
+            m = int((r + p) / 2)
+            if A[m] == el:
+                return True, m, m, m
+            elif A[m] > el:
+                r = m - 1
+                left = r
+                right = m
+            else:
+                p = m + 1
+                left = m
+                right = p
+        return False, m, left, right
 
     def biggest(num1, num2):
         return num1 if num1 > num2 else num2
@@ -88,6 +103,8 @@ class Solution(object):
 
 
 def customTest():
+    Solution.checkMedianSortedArrays(Solution, nums1=[1,1,1,1,1,100,100,100], nums2=[20,20,20,30,30])
+    Solution.checkMedianSortedArrays(Solution, nums1=[-30, -20,-10, -2,-1,1,100,100,100], nums2=[20,30,30, 10000,10000, 10000])
     Solution.checkMedianSortedArrays(Solution, nums1=[1, 2, 5, 7, 10], nums2=[])
     Solution.checkMedianSortedArrays(Solution, nums1=[1, 2, 5, 7, 10], nums2=[-1])
     Solution.checkMedianSortedArrays(Solution, nums1=[1, 2, 5, 7, 10], nums2=[15])
@@ -134,6 +151,7 @@ def randomTest_randomArrayLength(test_num):
 
     print("stats: " + sorted(stats.items()).__repr__())
 
+
 customTest()
-randomTest_fixedArrayLength(1000000000000000)
-randomTest_randomArrayLength(100000000000000)
+#randomTest_fixedArrayLength(1000000000000000)
+#randomTest_randomArrayLength(100000000000000)

@@ -9,8 +9,3 @@ def rand_array_sorted(size, p, r):
         i = i + 1
 
     return sorted(res)
-
-
-
-print(rand_array_sorted(10, 1, 100))
-print(rand_array_sorted(10, 1, 100))

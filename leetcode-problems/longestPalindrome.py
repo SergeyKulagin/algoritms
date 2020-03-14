@@ -12,7 +12,7 @@ def longestPalindrome(s):
             i = i + 1
             j = j + 1
         r = r - 1
-    return 0, s[0]
+    return (0,0), s[0]
 
 
 def isPalindrome(s, p, r):
@@ -28,3 +28,6 @@ def isPalindrome(s, p, r):
 
 print(longestPalindrome("babad"))
 print(longestPalindrome("cbbd"))
+print(longestPalindrome("hannah"))
+print(longestPalindrome("a"))
+print(longestPalindrome("abcabccba"))

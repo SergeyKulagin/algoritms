@@ -1,6 +1,26 @@
 import time
 
 class Solution(object):
+	def longestPalindrome1(self, s):
+		k = 1
+		n = len(s)
+		longest = (-1,-1)
+		while k < n - 1:
+			for offset in range(0,1)
+				j = k + offset
+				i = k - 1
+				end = i if i < n - j - 1 else n - j - 1
+				m = 0
+				while m <= end:
+					if s[i] != s[j]:
+						longest = (i + 1, j - 1) if j - i > longest[1] - 	longest[0] else longest
+						break
+				m = m + 1
+				j = j + 1
+				i = i - 1
+			k = k + 1
+					  			
+		
     def longestPalindrome(self, s):
         if s == "":
             return s

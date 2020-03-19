@@ -1,5 +1,7 @@
 from random import *
 
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+
 def rand_array_sorted(size, p, r):
     i = 0
     res = []
@@ -9,3 +11,10 @@ def rand_array_sorted(size, p, r):
         i = i + 1
 
     return sorted(res)
+
+
+def rand_string(size):
+    return ''.join(choice(alphabet) for i in range(size))
+
+
+print(rand_string(20))

@@ -22,21 +22,28 @@ class Solution:
 
         place = 1
         num = 0
-        # todo detect overflowPossible
-        overflowPossible = True
+        # todo double check
+        overflowPossible = False
         overflowCursor = len(overflowDigits) - 1
         while digitCursor >= 0:
             digit = digits[digitCursor]
             num = num + digit * place
             place *= 10
             digitCursor -= 1
-            overflowPossible = (digit >= overflowDigits[overflowCursor])
-            overflowCursor += 1
+            if digit > overflowDigits[overflowCursor]:
+                overflowPossible = True
+            elif digit < overflowDigits[overflowCursor]:
+                overflowPossible = False
+            overflowCursor -= 1
 
-        num = num * sign
+        if overflowCursor == -1 and overflowPossible:
+            num = 0
+        else:
+            num = num * sign
         print(num)
 
 
 s = Solution()
 s.reverse(12345678)
 s.reverse(100101)
+s.reverse(1112345678)

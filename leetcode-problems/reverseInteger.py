@@ -3,8 +3,10 @@ class Solution:
     # -2^31 = -2147483648
 
     def reverse(self, x: int) -> int:
+        if x == -2147483648:
+            return 0  # eliminate corner case overflow
         sign = -1 if x < 0 else 1
-        x = sign * x  # todo can overflowPossible?
+        x = sign * x
         overflowDigits = [2, 1, 4, 7, 4, 8, 3, 6, 4, 7 if sign > 0 else 8]
         digits = [None] * 10
         place = 10
@@ -22,7 +24,7 @@ class Solution:
 
         place = 1
         num = 0
-        # todo double check
+        # todo double check overflow detection
         overflowPossible = False
         overflowCursor = len(overflowDigits) - 1
         while digitCursor >= 0:

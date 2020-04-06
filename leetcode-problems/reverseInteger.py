@@ -1,9 +1,12 @@
+# 2^31 - 1 = 2147483647
+# -2^31 = -2147483648
+intmax = 2147483647
+intmin = -2147483648
+
 class Solution:
-    # 2^31 - 1 = 2147483647
-    # -2^31 = -2147483648
 
     def reverse(self, x: int) -> int:
-        if x == -2147483648:
+        if x == intmin:
             return 0  # eliminate corner case overflow
         sign = -1 if x < 0 else 1
         x = sign * x
@@ -42,10 +45,29 @@ class Solution:
             num = 0
         else:
             num = num * sign
-        print(num)
+        return num
+
+    def reverseTest(self, x: int) -> int:
+        s = str(x)
+        neg = (s[0] == '-')
+        s = s[1:len(s)] if neg else s[0:len(s)]
+        rev = s[len(s)::-1].lstrip("0")
+        return int(rev) * -1 if neg else int(rev)
+
+    def reverseCompare(self, x: int) -> int:
+        test = self.reverseTest(x)
+        return x, self.reverse(x), test, self.isOverflow(test)
+
+
+    def isOverflow(self, rev: int) -> bool:
+        return True if rev > intmax or rev < intmin else False
 
 
 s = Solution()
-s.reverse(12345678)
-s.reverse(100101)
-s.reverse(1112345678)
+print(s.reverseCompare(-34556))
+print(s.reverseCompare(12345678))
+print(s.reverseCompare(100101))
+print(s.reverseCompare(1112345678))
+print(s.reverseCompare(-34556))
+print(s.reverseCompare(intmax))
+print(s.reverseCompare(intmin))

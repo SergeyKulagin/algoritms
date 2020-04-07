@@ -1,3 +1,5 @@
+from random import *
+
 # 2^31 - 1 = 2147483647
 # -2^31 = -2147483648
 intmax = 2147483647
@@ -27,7 +29,6 @@ class Solution:
 
         place = 1
         num = 0
-        # todo double check overflow detection
         overflowPossible = False
         overflowCursor = len(overflowDigits) - 1
         while digitCursor >= 0:
@@ -48,6 +49,7 @@ class Solution:
         return num
 
     def reverseTest(self, x: int) -> int:
+        if x == 0: return 0
         s = str(x)
         neg = (s[0] == '-')
         s = s[1:len(s)] if neg else s[0:len(s)]
@@ -55,19 +57,42 @@ class Solution:
         return int(rev) * -1 if neg else int(rev)
 
     def reverseCompare(self, x: int) -> int:
-        test = self.reverseTest(x)
-        return x, self.reverse(x), test, self.isOverflow(test)
+        expected = self.reverseTest(x)
+        overflow = self.isOverflow(expected)
+        actual = self.reverse(x)
+        res = x, actual, expected, overflow
+        if overflow:
+            assert actual == 0, "expect 0 for overflow, but actual=" + str(actual)
+        else:
+            assert actual == expected, "actual=" + str(actual) + ", expected=" + str(expected)
+        return res
 
+    def allRangeTest(self):
+        end = intmax + 10
+        i = intmin - 10
+        while i < end:
+            print(self.reverseCompare(i))
+            i += 1
+
+    def randomTest(self):
+        num = 1000000
+        i = 0
+        while i < num:
+            print(self.reverseCompare(randint(intmin - 1000, intmax + 1000)))
+            i += 1
 
     def isOverflow(self, rev: int) -> bool:
         return True if rev > intmax or rev < intmin else False
 
 
 s = Solution()
-print(s.reverseCompare(-34556))
-print(s.reverseCompare(12345678))
-print(s.reverseCompare(100101))
-print(s.reverseCompare(1112345678))
-print(s.reverseCompare(-34556))
-print(s.reverseCompare(intmax))
-print(s.reverseCompare(intmin))
+# print(s.reverseCompare(-34556))
+# print(s.reverseCompare(12345678))
+# print(s.reverseCompare(100101))
+# print(s.reverseCompare(1112345678))
+# print(s.reverseCompare(-34556))
+# print(s.reverseCompare(intmax))
+# print(s.reverseCompare(intmin))
+# s.allRangeTest()
+# s.randomTest()
+s.reverse(65777777777777756)

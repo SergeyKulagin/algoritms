@@ -17,4 +17,14 @@ def rand_string(size):
     return ''.join(choice(alphabet) for i in range(size))
 
 
-print(rand_string(20))
+
+sign_choice = [["+-", "  "], ["abcdefghijklmnopqrstuvwxyz., /#!123456789"]]
+
+
+def rand_string_number():
+    return choice(choice(choice(sign_choice))) + choice(choice(sign_choice[0])) + str(randint(0, 100000000000000000000000000000)) + ''.join(choice("abcdefghijklmnopqrstuvwxyz., /#!123456789") for i in range(5))
+
+
+for i in range(1, 1000):
+    print('"' + rand_string_number() + '"')
+

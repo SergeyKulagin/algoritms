@@ -5,6 +5,11 @@ digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 plus = '+'
 minus = '-'
 
+# 2^31 - 1 = 2147483647
+# -2^31 = -2147483648
+intmax = 2147483647
+intmin = -2147483648
+
 
 class STATUS(enum.IntEnum):
     SPACE = 1,
@@ -57,7 +62,11 @@ class Solution:
             digitMult *= 10
             digitCursor -= 1
 
-        return res * sign
+        res = res * sign
+        res = intmax if res > intmax else res
+        res = intmin if res < intmin else res
+
+        return res
 
 
 s = Solution()
@@ -66,3 +75,6 @@ print(s.myAtoi("    123{}"))
 print(s.myAtoi("    0123{}"))
 print(s.myAtoi("  .  0123{}"))
 print(s.myAtoi("   343434.1212"))
+print(s.myAtoi("-91283472332"))
+print(s.myAtoi("-912872332"))
+print(s.myAtoi("+912872332"))

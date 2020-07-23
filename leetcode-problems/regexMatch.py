@@ -20,16 +20,23 @@ class Solution:
                 while self.get(p, p_idx + 1) == '.':
                     p_idx += 1
 
-                p_idx += 1
-                if self.get(p, p_idx) == s[s_idx]:
-                    p_idx += 1
-                    s_idx += 1
-                    p_context_cur = self.get(p, p_idx)
-                    p_context_prev = self.get(s, s_idx)
-                else:
-                    s_idx += 1
+                if self.get(p, p_idx + 1) is None:
+                    return True
+
+                s_back = s_len - 1 # go backward for search for last inclusion
+                while s_back >= s_idx:
+                    if self.get(p, p_idx + 1) == s[s_back]:
+                        p_idx += 2
+                        s_idx = s_back + 1
+                        p_context_cur = self.get(p, p_idx)
+                        p_context_prev = self.get(s, s_back)
+                        break
+                    else:
+                        s_back -= 1
+                if s_back == s_idx:
+                    return False
             elif p_context_cur == '*':
-                if p_idx == 0 or p_context_prev == '*':
+                if p_context_prev is None or p_context_prev == '*':
                     raise RuntimeError('Invalid pattern')
                 elif p_context_prev == s[s_idx]:
                     s_idx += 1
@@ -50,34 +57,54 @@ class Solution:
                 else:
                     return False
 
-        return s_idx >= s_len and (p_idx >= p_len - 1 or self.emptyExpressionLeft(p, p_idx, len(p)))
+        return s_idx >= s_len and (p_idx >= p_len - 1 or self.emptyExpressionLeft(p, p_idx))
 
     def get(self, arr, i):
         if len(arr) > i: return arr[i]
 
-    def emptyExpressionLeft(self, p: str, start: int, end: int):
-        while start < end:
-            if p[start] == '*':
-                if p[start - 1] == '*':
+    def emptyExpressionLeft(self, p: str, p_idx: int):
+        p_len = len(p)
+        p_cur = p[p_idx]
+        p_prev = self.get(p, p_idx - 1)
+        while p_idx < p_len:
+            if p_cur == '*':
+                if p_prev == '*':
                     raise RuntimeError('Invalid pattern')
-                start += 1
-            elif start < end - 1 and p[start + 1] == '*':
-                start += 1
+                p_prev = p_cur
+                p_idx += 1
+                p_cur = self.get(p, p_idx)
             else:
-                return False
+                if self.get(p, p_idx + 1) == '*':
+                    p_prev = p_cur
+                    p_idx += 1
+                    p_cur = '*'
+                else:
+                    return False
+        return True
 
-    def isMatchWithPrint(self, s: str, p: str) -> bool:
-        print(s + " is mathes to " + p + " = " + str(self.isMatch(s, p)))
+    def isMatchWithPrint(self, s: str, p: str, expected: bool) -> bool:
+        match = self.isMatch(s, p)
+        print(s + " is mathes to " + p + " = " + str(match))
+        assert match == expected, "Not expected"
 
 
 s = Solution()
-s.isMatchWithPrint("1", '1*')
-s.isMatchWithPrint("1", '1.*')
-s.isMatchWithPrint("aa", "a")
-s.isMatchWithPrint("aa", "a*")
-s.isMatchWithPrint("ab", ".*")
-s.isMatchWithPrint("aab", "c*a*b")
-s.isMatchWithPrint("mississippi", "mis*is*p*.")
-s.isMatchWithPrint("aaaaaaaaaaaaabq", ".*.q")
-s.isMatchWithPrint("abc", ".*.*.*")
-s.isMatchWithPrint("hello", ".*")
+s.isMatchWithPrint("1", '1*', True)
+s.isMatchWithPrint("11111111111111", '1*', True)
+s.isMatchWithPrint("1", '1.*', True)
+s.isMatchWithPrint("aa", "a", False)
+s.isMatchWithPrint("aa", "a*", True)
+s.isMatchWithPrint("ab", ".*", True)
+s.isMatchWithPrint("aab", "c*a*b", True)
+s.isMatchWithPrint("mississippi", "mis*is*p*.", False)
+s.isMatchWithPrint("aaaaaaaaaaaaabq", ".*.q", True)
+s.isMatchWithPrint("abc", ".*.*.*", True)
+s.isMatchWithPrint("hello", ".*", True)
+s.isMatchWithPrint("", "", True)
+s.isMatchWithPrint("", ".*", True)
+s.isMatchWithPrint("qqwqrwe", ".*", True)
+s.isMatchWithPrint("dsfsdsafdfd", ".*a.*", True)
+s.isMatchWithPrint("dsfsdsfdfd", ".*a.*", False)
+s.isMatchWithPrint("aaabbbccca", "a.*b", False)
+s.isMatchWithPrint("aaabbbccca", "a.*", True)
+s.isMatchWithPrint("aaabbbccca", "a.*a", True)

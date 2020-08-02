@@ -1,167 +1,150 @@
 # see also https://regex101.com/
 
+# need re(gular expressions) for check correctness of the algorithm
 import re
 
 
 class Solution:
-    def isMatch(self, s: str, p: str) -> bool:
+    def isMatch(self, s: str, p: str):
         s_idx = 0
-        p_idx = 0
-        p_context_cur = self.get(p, 0)
-        p_context_prev = None
-        return self.isMatch_(p, p_context_prev, p_context_cur, p_idx, s, s_idx)
+        regex_max_idx = -1
+        regex = build_regex(p)  # a*b => [(a, *), (b, 1)]
+        possibilities = find_possibilities(0, regex)
+        while s_idx < len(s):
+            possibility_idx = 0
+            next_possibilities = []
+            symbol_match = False
+            while possibility_idx < len(possibilities):
+                possibility_global_idx = possibilities[possibility_idx][0]
+                possibility_symbol = possibilities[possibility_idx][1][0]
+                possibility_control = possibilities[possibility_idx][1][1]
 
-    def isMatch_(self, p: str, p_context_prev: str, p_context_cur: str, p_idx: int, s: str, s_idx: int) -> bool:
-        while s_idx < len(s) and p_context_cur is not None:
-            if p_context_cur == '.':
-                p_idx += 1
-                s_idx += 1
-                p_context_prev = p_context_cur
-                p_context_cur = self.get(p, p_idx)
-            elif p_context_prev == '.' and p_context_cur == '*':  # handling '.*'
-                while self.get(p, p_idx + 1) == '.' and self.get(p, p_idx + 2) == '*':
-                    p_idx += 2
-                while self.get(p, p_idx + 1) == '.':
-                    p_idx += 1
-
-                if self.get(p, p_idx + 1) is None:
-                    return True
-
-                s_back = len(s) - 1  # go backward for search for last inclusion
-                found = False
-                while s_back >= s_idx:
-                    if self.get(p, p_idx + 1) == s[s_back]:
-                        p_idx += 2
-                        s_idx = s_back + 1
-                        p_context_cur = self.get(p, p_idx)
-                        p_context_prev = self.get(s, s_back)
-                        found = True
-                        break
+                if possibility_symbol == s[s_idx] or possibility_symbol == '.':
+                    symbol_match = True
+                    last_symbol = s_idx == len(s) - 1
+                    regex_max_idx = possibility_global_idx if possibility_global_idx > regex_max_idx and last_symbol else regex_max_idx
+                    if possibility_control == '*':
+                        next_possibilities.extend(find_possibilities(possibility_global_idx, regex))
                     else:
-                        s_back -= 1
-                if not found:
-                    return False
-            elif p_context_cur == '*':
-                if p_context_prev is None or p_context_prev == '*':
-                    raise RuntimeError(f'Invalid pattern {p}')
-                while self.get(p, p_idx + 1) == p_context_prev and self.get(p, p_idx + 2) == '*':
-                    p_idx += 2
-                if p_context_prev == s[s_idx]:
-                    (lastIdx, minInclusions)= self.findNoAsteriskContext(p, p_idx + 1, p_context_prev)
-                    if -1 < lastIdx <= len(p) and self.isMatch_(p, p_context_prev, p_context_cur, lastIdx, s,
-                                                                     s_idx):
-                        return True
-                    s_idx += 1
-                else:
-                    p_idx += 1
-                    p_context_prev = '*'
-                    p_context_cur = self.get(p, p_idx)
-            else:
-                if s[s_idx] == p_context_cur:
-                    s_idx += 1
-                    p_idx += 1
-                    p_context_prev = p_context_cur
-                    p_context_cur = self.get(p, p_idx)
-                elif self.get(p, p_idx + 1) == '*':
-                    p_idx += 2
-                    p_context_prev = '*'
-                    p_context_cur = self.get(p, p_idx)
-                else:
-                    return False
+                        next_possibilities.extend(find_possibilities(possibility_global_idx + 1, regex))
+                possibility_idx += 1
 
-        return s_idx >= len(s) and (p_idx >= len(p) or self.emptyExpressionLeft(p, p_idx))
+            if symbol_match:
+                s_idx += 1
+            if len(next_possibilities) == 0:
+                break
+            possibilities = next_possibilities
 
-    def findNoAsteriskContext(self, p, p_idx, p_context_prev):
-        i = p_idx
-        minInclusions = 0
-        while self.get(p, i + 1) == '*':
-            i += 2
-        while self.get(p, i) == p_context_prev:
-            minInclusions += 1
-            i += 1
-        return (i, minInclusions) if self.get(p, i - 1) == p_context_prev else (-1,0)
+        match = s_idx == len(s) and (regex_max_idx == len(regex) - 1 or optional_left(regex, regex_max_idx + 1))
+        print(f's={s}, p={p}, s_idx={s_idx}, regex_max_idx={regex_max_idx}, match={match}')
+        return match
 
-    def get(self, arr, i):
-        if len(arr) > i: return arr[i]
-
-    def emptyExpressionLeft(self, p: str, p_idx: int):
-        p_len = len(p)
-        p_cur = p[p_idx]
-        p_prev = self.get(p, p_idx - 1)
-        while p_idx < p_len:
-            if p_cur == '*':
-                if p_prev == '*':
-                    raise RuntimeError(f'Invalid pattern {p}')
-                p_prev = p_cur
-                p_idx += 1
-                p_cur = self.get(p, p_idx)
-            else:
-                if self.get(p, p_idx + 1) == '*':
-                    p_prev = p_cur
-                    p_idx += 1
-                    p_cur = '*'
-                else:
-                    return False
-        return True
-
-    def isMatchWithPrint(self, s: str, p: str) -> bool:
+    def is_match_print(self, s: str, p: str) -> bool:
         match = self.isMatch(s, p)
-
-        # print(s + " is mathes to " + p + " = " + str(match))
         print('"' + s + '"')
         print('"' + p + '"')
         assert match == bool(re.fullmatch(p, s)), "Not expected"
 
 
+# util functions
+def build_regex(p):
+    regex = []
+    p_len = len(p)
+    i = 0
+    while i < p_len:
+        if i + 1 < p_len and p[i + 1] == '*':
+            assert p[i] != '*'
+            regex.append((p[i], '*'))
+            i += 2
+        else:
+            assert p[i] != '*'
+            regex.append((p[i], '1'))
+            i += 1
+    return regex
+
+
+def find_possibilities(idx, regex):
+    pos = []
+    i = idx
+    pos_item_prev = (-1, -1)
+    while i < len(regex):
+        if regex[i][1] == '*':
+            new_item = (i, regex[i])
+            if pos_item_prev[1] != new_item[1]:
+                pos.append(new_item)
+            pos_item_prev = new_item
+            i += 1
+        else:
+            pos.append((i, regex[i]))
+            break
+    return pos
+
+
+def optional_left(regex, idx):
+    while idx < len(regex):
+        if regex[idx][1] != '*':
+            return False
+        idx += 1
+    return True
+
+
 s = Solution()
+
 # #exact match
-# s.isMatchWithPrint("abc", "abc")
-# s.isMatchWithPrint("abc", "abcc")
-# s.isMatchWithPrint("abcd", "abc")
-# s.isMatchWithPrint("a", "")
-# s.isMatchWithPrint("", "a")
-# # expressions (star)
-# s.isMatchWithPrint("a", 'a*')
-# s.isMatchWithPrint("aaaaa", 'a*')
-# s.isMatchWithPrint("aaaaa", 'a*a*')
-# s.isMatchWithPrint("aaaaa", 'a*a*a*a*a*')
-# s.isMatchWithPrint("aaaaa", 'b*')
-# s.isMatchWithPrint("aab", "c*a*b")
-# # expressions (dot)
-# s.isMatchWithPrint("a", ".")
-# s.isMatchWithPrint("a", "..")
-# s.isMatchWithPrint("a", "a.")
-# s.isMatchWithPrint("a", "a..")
-# s.isMatchWithPrint("aaa", "...")
-# s.isMatchWithPrint("aaa", "....")
-# s.isMatchWithPrint("aaa", ".a.")
-# # expressions (dot and match)
-# s.isMatchWithPrint("1", '1.*')
-# s.isMatchWithPrint("1", '1.*.*.*')
-# s.isMatchWithPrint("1", '1.*.*.')
-# s.isMatchWithPrint("1", '1.*.*.')
-# s.isMatchWithPrint("1b1", '1.*.*1')
-# s.isMatchWithPrint("1b1c1", '1.*.*1')
-# s.isMatchWithPrint("1b1c1", '1.*.*1')
-# s.isMatchWithPrint("1b1sadfsafsdfasc1", '.*')
-#
-# # misc
-# s.isMatchWithPrint("mississippi", "mis*is*p*.")
-# s.isMatchWithPrint("aaaaaaaaaaaaabq", ".*.q")
-# s.isMatchWithPrint("abc", ".*.*.*")
-# s.isMatchWithPrint("hello", ".*")
-# s.isMatchWithPrint("", "")
-# s.isMatchWithPrint("", ".*")
-# s.isMatchWithPrint("qqwqrwe", ".*")
-# s.isMatchWithPrint("dsfsdsafdfd", ".*a.*")
-# s.isMatchWithPrint("dsfsdsfdfd", ".*a.*")
-# s.isMatchWithPrint("aaabbbccca", "a.*b")
-# s.isMatchWithPrint("aaabbbccca", "a.*")
-# s.isMatchWithPrint("aaabbbccca", "a.*a")
-# s.isMatchWithPrint("aaa", "a*a")
-# s.isMatchWithPrint("aaa", "ab*a*c*a")
-# s.isMatchWithPrint("aaaa", "a*aaaa")
-# s.isMatchWithPrint("aaaa", "a*aa")
-# s.isMatchWithPrint("aaaa", "a*a*a")
-# s.isMatchWithPrint("aaaa", "a*a*aa")
-s.isMatchWithPrint("aaaa", "a*a*a*aaaaa")
+s.is_match_print("abc", "abc")
+s.is_match_print("abc", "abcc")
+s.is_match_print("abcd", "abc")
+s.is_match_print("a", "")
+s.is_match_print("", "a")
+
+# expressions (star)
+s.is_match_print("a", 'a*')
+s.is_match_print("aaaaa", 'a*')
+s.is_match_print("aaaaa", 'a*a*')
+s.is_match_print("aaaaa", 'a*a*a*a*a*')
+s.is_match_print("aaaaa", 'b*')
+s.is_match_print("aab", "c*a*b")
+
+# expressions (dot)
+s.is_match_print("a", ".")
+s.is_match_print("a", "..")
+s.is_match_print("a", "a.")
+s.is_match_print("a", "a..")
+s.is_match_print("aaa", "...")
+s.is_match_print("aaa", "....")
+s.is_match_print("aaa", ".a.")
+
+# expressions (dot and match)
+s.is_match_print("1", '1.*')
+s.is_match_print("1", '1.*.*.*')
+s.is_match_print("1", '1.*.*.')
+s.is_match_print("1", '1.*.*.')
+s.is_match_print("1b1", '1.*.*1')
+s.is_match_print("1b1c1", '1.*.*1')
+s.is_match_print("1b1c1", '1.*.*1')
+s.is_match_print("1b1sadfsafsdfasc1", '.*')
+
+# misc
+s.is_match_print("mississippi", "mis*is*p*.")
+s.is_match_print("aaaaaaaaaaaaabq", ".*.q")
+s.is_match_print("abc", ".*.*.*")
+s.is_match_print("hello", ".*")
+s.is_match_print("", "")
+s.is_match_print("", ".*")
+s.is_match_print("qqwqrwe", ".*")
+s.is_match_print("dsfsdsafdfd", ".*a.*")
+s.is_match_print("dsfsdsfdfd", ".*a.*")
+s.is_match_print("aaabbbccca", "a.*b")
+s.is_match_print("aaabbbccca", "a.*")
+s.is_match_print("aaabbbccca", "a.*a")
+s.is_match_print("aaa", "a*a")
+s.is_match_print("aaa", "ab*a*c*a")
+s.is_match_print("aaaa", "a*aaaa")
+s.is_match_print("aaaa", "a*aa")
+s.is_match_print("aaaa", "a*a*a")
+s.is_match_print("aaaa", "a*a*aa")
+s.is_match_print("aaaa", "a*a*a*aaaaa")
+
+# time limit
+s.is_match_print("aaaaaaaaaaaaab",
+                 "a*a*a*a*a*a*a*a*a*a*a*a*b")

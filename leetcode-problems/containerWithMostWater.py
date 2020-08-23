@@ -1,10 +1,40 @@
 from typing import List
 
 from util.util import rand_array
+import time
 
 
 class Solution:
+    # linear speed
     def maxArea(self, heights: List[int]) -> int:
+        max_area = 0
+        left_idx = 0
+        right_idx = len(heights) - 1
+        while left_idx < right_idx:
+            x_len = right_idx - left_idx
+            left_y = heights[left_idx]
+            right_y = heights[right_idx]
+            y_len = min(left_y, right_y)
+            area = x_len * y_len
+            max_area = area if area > max_area else max_area
+            if left_y < right_y:
+                left_idx += 1
+            elif right_y < left_y:
+                right_idx -= 1
+            else:  # both equal
+                if left_idx + 1 < right_idx - 1:
+                    if heights[left_idx + 1] <= heights[right_idx - 1]:
+                        # if both equal choose left (just by convention)
+                        left_idx += 1
+                    else:
+                        right_idx -= 1
+                else:
+                    left_idx += 1
+
+        return max_area
+
+    # quadratic speed
+    def maxAreaSlowButCorrect(self, heights: List[int]) -> int:
         idx = 0
         max_area = 0
         max_height = 0
@@ -26,11 +56,16 @@ class Solution:
 
     def maxAreaPrint(self, heights: List[int]) -> int:
         print(heights)
-        self.maxArea(heights)
+        expected_area = self.maxAreaSlowButCorrect(heights)
+        current_area = self.maxArea(heights)
+        assert expected_area == current_area, f"Not expected, expected = {expected_area}, current = {current_area}"
+        #print(f"max_area={current_area}");
 
 
-#test cases
+# test cases
 s = Solution()
+
+# other tests
 s.maxAreaPrint([1, 8, 6, 2, 5, 4, 8, 3, 7])
 s.maxAreaPrint([1, 5, 1, 5])
 s.maxAreaPrint([1, 5, 10, 10, 10, 20])
@@ -238,8 +273,32 @@ s.maxAreaPrint([788, 730, 151, 627, 332, 351, 225, 564, 97, 655])
 s.maxAreaPrint([92, 150, 765, 709, 75, 874, 753, 508, 682, 212])
 s.maxAreaPrint([899, 959, 630, 668, 249, 238, 313, 5, 138, 365])
 
-test_num = 100
-i = 0
-while i < test_num:
-    print(rand_array(10, 0, 1000))
-    i += 1
+# test_num = 100
+# i = 0
+# while i < test_num:
+#     print(rand_array(10, 0, 1000))
+#     i += 1
+#
+#print(list(range(40000)))
+
+
+#big input tests
+# start = time.time();
+# big_input_count = 15000
+# big_sorted_asc = list(range(big_input_count))
+# print(s.maxArea(big_sorted_asc))
+# print(f"Time spend (linear-asc) {time.time() - start}")
+#
+# start = time.time();
+# print(s.maxAreaSlow(big_sorted_asc))
+# print(f"Time spend (quadratic) {time.time() - start}")
+#
+# start = time.time();
+# big_sorted_desc = list(range(big_input_count))
+# big_sorted_desc.reverse()
+# print(s.maxArea(big_sorted_desc))
+# print(f"Time spend (linear-desc) {time.time() - start}")
+#
+# start = time.time();
+# print(s.maxAreaSlow(big_sorted_desc))
+# print(f"Time spend (quadratic-desc) {time.time() - start}")

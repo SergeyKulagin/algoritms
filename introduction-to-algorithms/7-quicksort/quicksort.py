@@ -1,13 +1,21 @@
 from random import *
 
 
+def generateArray(n, limit):
+    a = []
+    i = 0
+    while i < n:
+        a.append(randint(-limit, limit))
+        i = i + 1
+    return a
+
 # Lomuto partition
 def partition(A, p, r):
     x = A[r]
     j = p
     i = p - 1
     while j < r:
-        if A[j] < x:
+        if A[j] <= x:
             i = i + 1
             t = A[i]
             A[i] = A[j]
@@ -36,7 +44,12 @@ def quickSortStep(A, p, r):
 
 
 def quickSort(A):
+    b = A.copy()
     quickSortStep(A, 0, len(A) - 1)
+    b.sort()
+    if(A != b):
+        raise RuntimeError("Not equal")
+
     return A
 
 
@@ -113,12 +126,14 @@ def quickSortMultiPartition(A):
 print(quickSort([0, 0, 0]))
 print(quickSort([2, 7, 10, 11, 3, 0]))
 print(quickSort([14, 24, 46, 49, 96, 11, 17, 99, 3, 33, 41, 6, 51, 30, 31]))
+while True:
+    print(quickSort(generateArray(10, 1000)))
 
-print(quickSortHoare([2, 7, 10, 11, 3, 0]))
-print(quickSortHoare([14, 24, 46, 49, 96, 11, 17, 99, 3, 33, 41, 6, 51, 30, 31]))
+#print(quickSortHoare([2, 7, 10, 11, 3, 0]))
+#print(quickSortHoare([14, 24, 46, 49, 96, 11, 17, 99, 3, 33, 41, 6, 51, 30, 31]))
 
-print(quickSortMultiPartition([2, 7, 10, 11, 3, 0]))
-print(quickSortMultiPartition([14, 24, 46, 49, 96, 11, 17, 99, 3, 33, 41, 6, 51, 30, 31]))
+#print(quickSortMultiPartition([2, 7, 10, 11, 3, 0]))
+#print(quickSortMultiPartition([14, 24, 46, 49, 96, 11, 17, 99, 3, 33, 41, 6, 51, 30, 31]))
 
 # l = [5, 7, 7, 10, 5, 5, 3, 2, 1, 5, 12, 0, 99, 2]
 # l = [18,3,3,3,3,1,1,1,1,7,7,7,7,12,12,17,17,18,0,0]

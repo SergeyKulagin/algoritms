@@ -110,6 +110,7 @@ def quickSortMultiPartition(A):
     return A
 
 
+print(quickSort([0, 0, 0]))
 print(quickSort([2, 7, 10, 11, 3, 0]))
 print(quickSort([14, 24, 46, 49, 96, 11, 17, 99, 3, 33, 41, 6, 51, 30, 31]))
 
